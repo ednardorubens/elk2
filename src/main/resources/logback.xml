@@ -1,0 +1,25 @@
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="kafkaAppender" class="com.github.danielwegener.logback.kafka.KafkaAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+        <topic>app_logs</topic>
+        <keyingStrategy class="com.github.danielwegener.logback.kafka.keying.NoKeyKeyingStrategy" />
+        <deliveryStrategy class="com.github.danielwegener.logback.kafka.delivery.AsynchronousDeliveryStrategy" />
+
+        <producerConfig>client.id=${HOSTNAME}-logger-client</producerConfig>
+        <producerConfig>bootstrap.servers=localhost:9092</producerConfig>
+        <producerConfig>retries=3</producerConfig>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="kafkaAppender" />
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
