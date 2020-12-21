@@ -11,11 +11,15 @@ Pipeline de coleta, transformação e análise de logs usando Elasticsearch, Log
 $ mvn clean package
 $ docker-compose up
 ```
+## Recompilar o projeto
+```
+$ mvn clean package
+$ docker-compose build --no-cache elk2 logstash
+```
 ## Parar o projeto
 ```
 $ docker-compose down
 ```
-
 ## Recursos
  - [Elasticsearch](https://www.elastic.co/pt/what-is/elasticsearch)
  - [Logstash](https://www.elastic.co/pt/logstash)
